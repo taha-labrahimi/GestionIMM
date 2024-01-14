@@ -4,6 +4,7 @@ using GestionIMM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionIMM.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240114131819_db2")]
+    partial class db2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,12 +81,16 @@ namespace GestionIMM.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("PaiementMensuel")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("ProprieteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocataireId");
+
+                    b.HasIndex("ProprieteId");
 
                     b.ToTable("contratLocations");
                 });
@@ -101,12 +108,15 @@ namespace GestionIMM.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("ProprieteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProprieteId");
 
                     b.ToTable("maintenances");
                 });
@@ -128,9 +138,9 @@ namespace GestionIMM.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<double>("Taille")
                         .HasColumnType("float");
@@ -159,12 +169,16 @@ namespace GestionIMM.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Montant")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("ProprieteId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AcheteurId");
+
+                    b.HasIndex("ProprieteId");
 
                     b.ToTable("transactionVentes");
                 });
@@ -409,6 +423,55 @@ namespace GestionIMM.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("GestionIMM.Models.ContratLocation", b =>
+                {
+                    b.HasOne("GestionIMM.Models.Client", "Locataire")
+                        .WithMany()
+                        .HasForeignKey("LocataireId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestionIMM.Models.Propriete", "Propriete")
+                        .WithMany()
+                        .HasForeignKey("ProprieteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Locataire");
+
+                    b.Navigation("Propriete");
+                });
+
+            modelBuilder.Entity("GestionIMM.Models.Maintenance", b =>
+                {
+                    b.HasOne("GestionIMM.Models.Propriete", "Propriete")
+                        .WithMany()
+                        .HasForeignKey("ProprieteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Propriete");
+                });
+
+            modelBuilder.Entity("GestionIMM.Models.TransactionVente", b =>
+                {
+                    b.HasOne("GestionIMM.Models.Client", "Acheteur")
+                        .WithMany()
+                        .HasForeignKey("AcheteurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestionIMM.Models.Propriete", "Propriete")
+                        .WithMany()
+                        .HasForeignKey("ProprieteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Acheteur");
+
+                    b.Navigation("Propriete");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
