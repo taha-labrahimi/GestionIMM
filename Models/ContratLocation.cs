@@ -25,5 +25,8 @@ namespace GestionIMM.Models
         [Required]
         [Column(TypeName = "decimal(18, 2)")]
         public decimal PaiementMensuel { get; set; }
+
+        [Required]
+        public Boolean Disponibilite { get; set; }
     }
 }
