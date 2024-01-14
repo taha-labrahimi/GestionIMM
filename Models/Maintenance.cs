@@ -10,13 +10,9 @@ namespace GestionIMM.Models
 
         [ForeignKey("Propriete")]
         public int ProprieteId { get; set; }
-        public Propriete Propriete { get; set; }
 
-        [Required]
-        [StringLength(1000)]
         public string Description { get; set; }
 
-        [Required]
         public DateTime DateDemande { get; set; }
     }
 }

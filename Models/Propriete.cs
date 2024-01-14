@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.Reflection.Metadata;
 
 namespace GestionIMM.Models
 {
@@ -7,18 +9,14 @@ namespace GestionIMM.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public string Type { get; set; }
 
-        [Required]
         public double Taille { get; set; }
 
-        [Required]
-        [StringLength(255)]
         public string Emplacement { get; set; }
 
         public string Caracteristiques { get; set; }
 
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
     }
 }
