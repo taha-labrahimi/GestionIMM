@@ -38,8 +38,16 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Image)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Image)
+        <dd class="col-sm-10">
+            <!-- Vérifiez si le chemin de l'image existe et affichez l'image -->
+            @if (Model.Image != null)
+            {
+                <img src="@Url.Content("~/images/" + Model.Image)" alt="Image de la propriété" style="max-width: 200px; max-height: 200px;" />
+            }
+            else
+            {
+                <text>Aucune image disponible.</text>
+            }
         </dd>
     </dl>
     

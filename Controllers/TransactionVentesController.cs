@@ -22,7 +22,12 @@ namespace GestionIMM.Controllers
         // GET: TransactionVentes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.transactionVentes.ToListAsync());
+            var transactions = await _context.transactionVentes
+                .Include(t => t.Propriete)
+                .Include(t => t.Client)
+                .ToListAsync();
+            return View(transactions);
+            
         }
 
         // GET: TransactionVentes/Details/5
@@ -32,9 +37,10 @@ namespace GestionIMM.Controllers
             {
                 return NotFound();
             }
-
             var transactionVente = await _context.transactionVentes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            .Include(t => t.Propriete) // Incluez l'entité Propriete
+            .Include(t => t.Client)  // Incluez l'entité Acheteur
+            .FirstOrDefaultAsync(m => m.Id == id);
             if (transactionVente == null)
             {
                 return NotFound();
@@ -58,13 +64,10 @@ namespace GestionIMM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProprieteId,AcheteurId,DateTransaction,Montant")] TransactionVente transactionVente)
         {
-            if (ModelState.IsValid)
-            {
+
                 _context.Add(transactionVente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(transactionVente);
         }
 
         // GET: TransactionVentes/Edit/5
@@ -74,12 +77,16 @@ namespace GestionIMM.Controllers
             {
                 return NotFound();
             }
-
-            var transactionVente = await _context.transactionVentes.FindAsync(id);
+            var transactionVente = await _context.transactionVentes
+            .Include(t => t.Propriete) // Assurez-vous d'inclure la propriété
+            .Include(t => t.Client) // Assurez-vous d'inclure l'acheteur
+            .FirstOrDefaultAsync(m => m.Id == id);
             if (transactionVente == null)
             {
                 return NotFound();
             }
+            ViewData["ProprieteId"] = new SelectList(_context.proprietes, "Id", "Type"); // Remplacez "Nom" par le nom de la colonne qui contient le nom des propriétés
+            ViewData["AcheteurId"] = new SelectList(_context.clients, "Id", "Nom");
             return View(transactionVente);
         }
 
@@ -94,9 +101,6 @@ namespace GestionIMM.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(transactionVente);
@@ -114,8 +118,6 @@ namespace GestionIMM.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(transactionVente);
         }
 
         // GET: TransactionVentes/Delete/5

@@ -22,7 +22,11 @@ namespace GestionIMM.Controllers
         // GET: ContratLocations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.contratLocations.ToListAsync());
+            var Location = await _context.contratLocations
+                .Include(t => t.Propriete)
+                .Include(t => t.Locataire)
+                .ToListAsync();
+            return View(Location);
         }
 
         // GET: ContratLocations/Details/5
@@ -34,6 +38,8 @@ namespace GestionIMM.Controllers
             }
 
             var contratLocation = await _context.contratLocations
+                .Include(c => c.Locataire)
+                .Include(c => c.Propriete)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contratLocation == null)
             {
@@ -46,6 +52,8 @@ namespace GestionIMM.Controllers
         // GET: ContratLocations/Create
         public IActionResult Create()
         {
+            ViewData["LocataireId"] = new SelectList(_context.clients, "Id", "Nom");
+            ViewData["ProprieteId"] = new SelectList(_context.proprietes, "Id", "Type");
             return View();
         }
 
@@ -56,12 +64,13 @@ namespace GestionIMM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ProprieteId,LocataireId,DateDebut,DateFin,PaiementMensuel,Disponibilite")] ContratLocation contratLocation)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(contratLocation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+
+            _context.Add(contratLocation);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+  
+            ViewData["LocataireId"] = new SelectList(_context.clients, "Id", "Nom", contratLocation.LocataireId);
+            ViewData["ProprieteId"] = new SelectList(_context.proprietes, "Id", "Type", contratLocation.ProprieteId);
             return View(contratLocation);
         }
 
@@ -73,11 +82,16 @@ namespace GestionIMM.Controllers
                 return NotFound();
             }
 
-            var contratLocation = await _context.contratLocations.FindAsync(id);
+            var contratLocation = await _context.contratLocations
+                .Include(c => c.Locataire)
+                .Include(c => c.Propriete)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (contratLocation == null)
             {
                 return NotFound();
             }
+            ViewData["LocataireId"] = new SelectList(_context.clients, "Id", "Nom", contratLocation.LocataireId);
+            ViewData["ProprieteId"] = new SelectList(_context.proprietes, "Id", "Type", contratLocation.ProprieteId);
             return View(contratLocation);
         }
 
@@ -113,6 +127,8 @@ namespace GestionIMM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["LocataireId"] = new SelectList(_context.clients, "Id", "Nom", contratLocation.LocataireId);
+            ViewData["ProprieteId"] = new SelectList(_context.proprietes, "Id", "Type", contratLocation.ProprieteId);
             return View(contratLocation);
         }
 
@@ -125,6 +141,8 @@ namespace GestionIMM.Controllers
             }
 
             var contratLocation = await _context.contratLocations
+                .Include(c => c.Locataire)
+                .Include(c => c.Propriete)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (contratLocation == null)
             {
