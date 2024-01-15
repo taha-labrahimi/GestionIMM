@@ -21,6 +21,6 @@ namespace GestionIMM.Models
 
         public string Caracteristiques { get; set; }
         
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
     }
 }

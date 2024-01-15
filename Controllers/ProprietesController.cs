@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GestionIMM.Data;
 using GestionIMM.Models;
+using Azure.Core;
 
 namespace GestionIMM.Controllers
 {
     public class ProprietesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProprietesController(ApplicationDbContext context)
+        public ProprietesController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Proprietes
@@ -49,43 +52,27 @@ namespace GestionIMM.Controllers
             return View();
         }
 
+        // POST: Proprietes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Type,Taille,Emplacement,Caracteristiques")] Propriete propriete, IFormFile uploadedImage)
+        public async Task<IActionResult> Create(Propriete propriete,IFormFile uploadimage)
         {
-            if (!ModelState.IsValid)
-            {
-                // Parcourir et journaliser toutes les erreurs de validation
-                foreach (var entry in ModelState)
+
+                if (uploadimage != null && uploadimage.Length > 0)
                 {
-                    foreach (var error in entry.Value.Errors)
+                    var fileName = Path.GetFileName(uploadimage.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        // Journaliser le message d'erreur
-                        System.Diagnostics.Debug.WriteLine(error.ErrorMessage);
+                        await uploadimage.CopyToAsync(fileStream);
                     }
+                    propriete.Image = fileName; 
                 }
-                return View(propriete);
-            }
-            if (uploadedImage != null && uploadedImage.Length > 0)
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await uploadedImage.CopyToAsync(memoryStream);
-                    propriete.Image = memoryStream.ToArray();
-                }
-            }
-            else
-            {
-                // Si aucune image n'est téléchargée et que le champ est facultatif
-                propriete.Image = null;
-            }
 
-            // Ajouter l'objet propriete au contexte et sauvegarder les changements
-            _context.Add(propriete);
-            await _context.SaveChangesAsync();
-
-            // Rediriger vers la méthode d'action 'Index' après l'ajout de l'objet
-            return RedirectToAction(nameof(Index));
+                _context.Add(propriete);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
         }
 
         // GET: Proprietes/Edit/5
@@ -109,17 +96,25 @@ namespace GestionIMM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Type,Taille,Emplacement,Caracteristiques,Image")] Propriete propriete)
+        public async Task<IActionResult> Edit(int id, Propriete propriete, IFormFile uploadimage)
         {
             if (id != propriete.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
                 try
                 {
+                    if (uploadimage != null && uploadimage.Length > 0)
+                    {
+                        var fileName = Path.GetFileName(uploadimage.FileName);
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await uploadimage.CopyToAsync(fileStream);
+                        }
+                        propriete.Image = fileName; // Mettre à jour le chemin de l'image
+                    }
+
                     _context.Update(propriete);
                     await _context.SaveChangesAsync();
                 }
@@ -135,8 +130,7 @@ namespace GestionIMM.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(propriete);
+
         }
 
         // GET: Proprietes/Delete/5
