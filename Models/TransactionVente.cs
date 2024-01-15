@@ -10,9 +10,11 @@ namespace GestionIMM.Models
 
         [ForeignKey("Propriete")]
         public int ProprieteId { get; set; }
+        public virtual Propriete Propriete { get; set; }
 
         [ForeignKey("Client")]
         public int AcheteurId { get; set; }
+        public virtual Client Client { get; set; }
 
         public DateTime DateTransaction { get; set; }
 
