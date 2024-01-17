@@ -4,57 +4,70 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GestionIMM</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GestionIMM.styles.css" asp-append-version="true" />
+
+    <style>
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            color: white;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+            .sidebar a {
+                padding: 10px 15px;
+                text-decoration: none;
+                font-size: 18px;
+                color: white;
+                display: block;
+            }
+
+                .sidebar a:hover {
+                    color: #f8f9fa;
+                    background-color: #007bff;
+                }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GestionIMM</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="">Clients</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Proprietes" asp-action="">Proprietes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TransactionVentes" asp-action="">Transaction Ventes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ContratLocations" asp-action="">Contrat Locations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Utilisateurs" asp-action="">Utilisateurs</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
+    <div class="sidebar">
+        <div class="py-2 px-3 mb-4 border-bottom">
+            <span class="h5 mb-0">GestionIMM</span>
+        </div>
+        <a asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i> Home</a>
+        <a asp-area="" asp-controller="Clients" asp-action="Index"><i class="bi bi-people"></i> Clients</a>
+        <a asp-area="" asp-controller="Proprietes" asp-action="Index"><i class="bi bi-building"></i> Proprietes</a>
+        <a asp-area="" asp-controller="TransactionVentes" asp-action="Index"><i class="bi bi-currency-exchange"></i> Transaction Ventes</a>
+        <a asp-area="" asp-controller="ContratLocations" asp-action="Index"><i class="bi bi-file-earmark-text"></i> Contrat Locations</a>
+        <a asp-area="" asp-controller="Utilisateurs" asp-action="Index"><i class="bi bi-person-badge"></i> Utilisateurs</a>
+    </div>
+
+    <div class="main-content">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2024 - GestionIMM
+            </div>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - GestionIMM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
