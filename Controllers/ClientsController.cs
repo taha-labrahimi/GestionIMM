@@ -140,15 +140,10 @@ namespace GestionIMM.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var client = await _context.clients.FindAsync(id);
-            if (client != null)
-            {
-                _context.clients.Remove(client);
-            }
-
+            _context.clients.Remove(client);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool ClientExists(int id)
         {
             return _context.clients.Any(e => e.Id == id);

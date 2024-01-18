@@ -4,51 +4,97 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!-- Include Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
-<div>
-    <h4>ContratLocation</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Propriete)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Propriete.Type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Locataire)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Locataire.Nom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateDebut)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateDebut)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateFin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateFin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaiementMensuel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaiementMensuel)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Disponibilite)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Disponibilite)
-        </dd>
-    </dl>
+<style>
+    body {
+        background-color: #FBF9F1; /* Background color */
+    }
+
+    .link-custom, .link-custom:hover {
+        color: #92C7CF; /* Link color */
+        text-decoration: none;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .form-content .form-items {
+        background-color: #FBF9F1; /* Form background color */
+        border-radius: 10px;
+        border: 3px solid #E5E1DA; /* Form border */
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 80%; /* Form width */
+        margin: auto;
+        margin-top: 30px;
+    }
+
+    .form-control-plaintext {
+        background-color: #fff; /* White background for readonly fields */
+        padding: .375rem .75rem; /* Padding similar to form-control */
+        border: 1px solid #ced4da; /* Border similar to form-control */
+        border-radius: .25rem; /* Border radius similar to form-control */
+    }
+</style>
+
+<h1>Details of ContratLocation</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-content">
+            <div class="form-items">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Propriete:</label>
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.Propriete.Type">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Locataire:</label>
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.Locataire.Nom">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Date Debut:</label>
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.DateDebut">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Date Fin:</label>
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.DateFin">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Paiement Mensuel:</label>
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.PaiementMensuel">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label">Disponibilite:</label>
+                            <input type="text" readonly class="form-control-plaintext" value="@Model.Disponibilite">
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <a asp-action="Edit" asp-route-id="@Model?.Id" class="link-custom">Edit</a>
+                        <a asp-action="Index" class="link-custom">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

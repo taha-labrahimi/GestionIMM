@@ -4,62 +4,124 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!-- Include Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Propriete)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locataire)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateDebut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaiementMensuel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Disponibilite)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Propriete.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Locataire.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateDebut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateFin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaiementMensuel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Disponibilite)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<style>
+    /* Styles from the Client Index page */
+    body {
+        background-color: #FBF9F1;
+    }
+
+    .table-dark th {
+        background-color: #92C7CF;
+        color: black;
+        font-weight: bold;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #E5E1DA;
+    }
+
+    .search-box {
+        margin-bottom: 20px;
+        height: 38px;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .action-icons a {
+        margin-right: 10px;
+    }
+
+    .custom-color-btn {
+        background-color: #AAD7D9;
+        border-color: #AAD7D9;
+    }
+
+    .pagination {
+        justify-content: center;
+    }
+</style>
+
+<h1>ContratLocation</h1>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col text-left">
+            <p>
+                <a asp-action="Create" class="btn custom-color-btn">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </p>
+        </div>
+        <div class="col text-right">
+            <input class="form-control search-box" type="text" id="searchInput" placeholder="Search...">
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Propriete)</th>
+                <th>@Html.DisplayNameFor(model => model.Locataire)</th>
+                <th>@Html.DisplayNameFor(model => model.DateDebut)</th>
+                <th>@Html.DisplayNameFor(model => model.DateFin)</th>
+                <th>@Html.DisplayNameFor(model => model.PaiementMensuel)</th>
+                <th>@Html.DisplayNameFor(model => model.Disponibilite)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Propriete.Type)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Locataire.Nom)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateDebut)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateFin)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PaiementMensuel)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Disponibilite)</td>
+                    <td class="action-icons">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Pagination (example) -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <!-- More page items as needed -->
+        </ul>
+    </nav>
+</div>
+
+<!-- Include jQuery for search functionality -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
