@@ -144,6 +144,7 @@ namespace GestionIMM.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         private bool ClientExists(int id)
         {
             return _context.clients.Any(e => e.Id == id);

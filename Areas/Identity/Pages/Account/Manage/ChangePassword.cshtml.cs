@@ -8,19 +8,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using GestionIMM.Models;
 using Microsoft.Extensions.Logging;
 
 namespace GestionIMM.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<Utilisateur> _userManager;
+        private readonly SignInManager<Utilisateur> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
         public ChangePasswordModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<Utilisateur> userManager,
+            SignInManager<Utilisateur> signInManager,
             ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;
