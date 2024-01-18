@@ -4,6 +4,49 @@
     ViewData["Title"] = "Liste des Utilisateurs";
 }
 
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    /* Styles from the Client Index page */
+    body {
+        background-color: #FBF9F1;
+    }
+
+    .table-dark th {
+        background-color: #92C7CF;
+        color: black;
+        font-weight: bold;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #E5E1DA;
+    }
+
+    .search-box {
+        margin-bottom: 20px;
+        height: 38px;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    .action-icons a {
+        margin-right: 10px;
+    }
+
+    .custom-color-btn {
+        background-color: #AAD7D9;
+        border-color: #AAD7D9;
+    }
+
+    .pagination {
+        justify-content: center;
+    }
+</style>
+
 <h1>Liste des Utilisateurs</h1>
 
 @if (TempData["SuccessMessage"] != null)
@@ -20,33 +63,64 @@
     </div>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Nom d'utilisateur</th>
-            <th>Email</th>
-            <th>Rôles</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
+
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col text-left">
+            <p>
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn custom-color-btn">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </p>
+        </div>
+        <div class="col text-right">
+            <input class="form-control search-box" type="text" id="searchInput" placeholder="Search...">
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
             <tr>
-                <td>@user.LastName</td>
-                <td>@user.FirstName</td>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>@string.Join(", ", user.Roles)</td>
-                <td>
-                    <form asp-action="Delete" method="post">
-                        <input type="hidden" name="userId" value="@user.Id" />
-                        <button type="submit" class="btn btn-danger">Supprimer</button>
-                    </form>
-                </td>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Nom d'utilisateur</th>
+                <th>Email</th>
+                <th>Rôles</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.LastName</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@string.Join(", ", user.Roles)</td>
+                    <td class="action-icons">
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $(".table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
