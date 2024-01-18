@@ -71,7 +71,6 @@
                 <th>@Html.DisplayNameFor(model => model.DateDebut)</th>
                 <th>@Html.DisplayNameFor(model => model.DateFin)</th>
                 <th>@Html.DisplayNameFor(model => model.PaiementMensuel)</th>
-                <th>@Html.DisplayNameFor(model => model.Disponibilite)</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -84,7 +83,6 @@
                     <td>@Html.DisplayFor(modelItem => item.DateDebut)</td>
                     <td>@Html.DisplayFor(modelItem => item.DateFin)</td>
                     <td>@Html.DisplayFor(modelItem => item.PaiementMensuel)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Disponibilite)</td>
                     <td class="action-icons">
                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
                             <i class="fas fa-edit"></i>
