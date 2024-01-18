@@ -4,55 +4,113 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<!-- Include Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
-<h4>Client</h4>
+<style>
+    body {
+        background-color: #FBF9F1; /* Background color */
+    }
+
+    .btn-custom {
+        background-color: #92C7CF; /* Button color */
+        border-color: #92C7CF;
+    }
+
+        .btn-custom:hover {
+            background-color: #7DA8AF; /* Button hover color */
+            border-color: #7DA8AF;
+        }
+
+    .link-custom {
+        color: #92C7CF; /* Link color */
+    }
+
+    .form-row {
+        margin-bottom: 20px; /* Space between rows */
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .form-content .form-items {
+        background-color: #FBF9F1; /* Form background color */
+        border-radius: 10px;
+        border: 3px solid #E5E1DA; /* Form border */
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 80%; /* Form width */
+        margin: auto;
+        margin-top: 30px;
+    }
+</style>
+
+<h1>Edit Client</h1>
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
+    <div class="col-md-12">
+        <div class="form-content">
+            <div class="form-items">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <!-- Row for Nom and Prenom -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Nom" class="control-label"></label>
+                            <input asp-for="Nom" class="form-control" />
+                            <span asp-validation-for="Nom" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Prenom" class="control-label"></label>
+                            <input asp-for="Prenom" class="form-control" />
+                            <span asp-validation-for="Prenom" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Other form fields -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="NumeroTelephone" class="control-label"></label>
+                            <input asp-for="NumeroTelephone" class="form-control" />
+                            <span asp-validation-for="NumeroTelephone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Adresse" class="control-label"></label>
+                            <input asp-for="Adresse" class="form-control" />
+                            <span asp-validation-for="Adresse" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Type" class="control-label"></label>
+                            <select asp-for="Type" class="form-control">
+                                <option>Acheteur</option>
+                                <option>Vendeur</option>
+                                <option>Locataire</option>
+                            </select>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <a asp-action="Index" class="link-custom">Back to List</a>
+                        <input type="submit" value="Save" class="btn btn-custom" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Prenom" class="control-label"></label>
-                <input asp-for="Prenom" class="form-control" />
-                <span asp-validation-for="Prenom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroTelephone" class="control-label"></label>
-                <input asp-for="NumeroTelephone" class="form-control" />
-                <span asp-validation-for="NumeroTelephone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adresse" class="control-label"></label>
-                <input asp-for="Adresse" class="form-control" />
-                <span asp-validation-for="Adresse" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control">
-                    <option>Acheteur</option>
-                    <option>Vendeur</option>
-                    <option>Locataire</option>
-                </select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

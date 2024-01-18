@@ -4,54 +4,126 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<!-- Include Bootstrap CSS -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<h4>Client</h4>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #FBF9F1; /* New background color */
+    }
+
+    .btn-custom {
+        background-color: #92C7CF; /* New button color */
+        border-color: #92C7CF;
+    }
+
+        .btn-custom:hover {
+            background-color: #7DA8AF; /* Slightly darker on hover */
+            border-color: #7DA8AF;
+        }
+
+    .link-custom {
+        color: #92C7CF; /* New link color */
+    }
+
+    .form-row {
+        margin-bottom: 20px; /* Space between each line */
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Additional styling for form elements */
+    .form-content .form-items {
+        background-color: #FBF9F1;/* White background for form */
+        border-radius: 10px;
+        border: 3px solid #E5E1DA;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+
+    .form-content .form-items  {
+        width:80%;
+        border: 1px solid #CCCCCC;
+        margin:auto;
+        margin-top: 30px;
+    }
+
+    /* Add any additional styling here */
+</style>
+
+<h1>Create Client</h1>
+
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
+    <div class="col-md-12">
+        <div class="form-content">
+            <div class="form-items">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <!-- Row for Nom and Prenom -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Nom" class="control-label"></label>
+                            <input asp-for="Nom" class="form-control" />
+                            <span asp-validation-for="Nom" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Prenom" class="control-label"></label>
+                            <input asp-for="Prenom" class="form-control" />
+                            <span asp-validation-for="Prenom" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Other form fields -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="NumeroTelephone" class="control-label"></label>
+                            <input asp-for="NumeroTelephone" class="form-control" />
+                            <span asp-validation-for="NumeroTelephone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Adresse" class="control-label"></label>
+                            <input asp-for="Adresse" class="form-control" />
+                            <span asp-validation-for="Adresse" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Type" class="control-label"></label>
+                            <select asp-for="Type" class="form-control">
+                                <option>Acheteur</option>
+                                <option>Vendeur</option>
+                                <option>Locataire</option>
+                            </select>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <!-- Other form fields -->
+                    <!-- ... (rest of your form fields) -->
+
+                    <div class="form-footer">
+                        <a asp-action="Index" class="link-custom">Back to List</a>
+                        <input type="submit" value="Create" class="btn btn-custom" />
+                    </div>
+                </form>
+      
             </div>
-            <div class="form-group">
-                <label asp-for="Prenom" class="control-label"></label>
-                <input asp-for="Prenom" class="form-control" />
-                <span asp-validation-for="Prenom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroTelephone" class="control-label"></label>
-                <input asp-for="NumeroTelephone" class="form-control" />
-                <span asp-validation-for="NumeroTelephone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adresse" class="control-label"></label>
-                <input asp-for="Adresse" class="form-control" />
-                <span asp-validation-for="Adresse" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control">
-                    <option>Acheteur</option>
-                    <option>Vendeur</option>
-                    <option>Locataire</option>
-                </select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -4,53 +4,92 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!-- Include Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
-<div>
-    <h4>Propriete</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Taille)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Taille)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Emplacement)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Emplacement)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Caracteristiques)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Caracteristiques)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class="col-sm-10">
-            <!-- Vérifiez si le chemin de l'image existe et affichez l'image -->
-            @if (Model.Image != null)
-            {
-                <img src="@Url.Content("~/images/" + Model.Image)" alt="Image de la propriété" style="max-width: 200px; max-height: 200px;" />
-            }
-            else
-            {
-                <text>Aucune image disponible.</text>
-            }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<style>
+    body {
+        background-color: #FBF9F1; /* Background color */
+    }
+
+    .link-custom, .link-custom:hover {
+        color: #92C7CF; /* Link color */
+        text-decoration: none;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .form-content .form-items {
+        background-color: #FBF9F1; /* Form background color */
+        border-radius: 10px;
+        border: 3px solid #E5E1DA; /* Form border */
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 80%; /* Form width */
+        margin: auto;
+        margin-top: 30px;
+    }
+
+    .form-control-plaintext {
+        background-color: #fff; /* White background for readonly fields */
+        padding: .375rem .75rem; /* Padding similar to form-control */
+        border: 1px solid #ced4da; /* Border similar to form-control */
+        border-radius: .25rem; /* Border radius similar to form-control */
+    }
+</style>
+
+<h1>Details of Propriete</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-content">
+            <div class="form-items">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="col-form-label">Type:</label>
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Type">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-form-label">Taille:</label>
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Taille">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="col-form-label">Emplacement:</label>
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Emplacement">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-form-label">Caracteristiques:</label>
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.Caracteristiques">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label class="col-form-label">Image:</label>
+                        @if (Model.Image != null)
+                        {
+                            <img src="@Url.Content("~/images/" + Model.Image)" alt="Image de la propriété" style="max-width: 200px; max-height: 200px;" />
+                        }
+                        else
+                        {
+                            <input type="text" readonly class="form-control-plaintext" value="Aucune image disponible.">
+                        }
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="link-custom">Edit</a>
+                    <a asp-action="Index" class="link-custom">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
