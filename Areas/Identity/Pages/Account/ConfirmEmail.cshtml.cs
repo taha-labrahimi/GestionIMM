@@ -6,19 +6,21 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GestionIMM.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using GestionIMM.Models;
 
 namespace GestionIMM.Areas.Identity.Pages.Account
 {
     public class ConfirmEmailModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<Utilisateur> _userManager;
 
-        public ConfirmEmailModel(UserManager<IdentityUser> userManager)
+        public ConfirmEmailModel(UserManager<Utilisateur> userManager)
         {
             _userManager = userManager;
         }
