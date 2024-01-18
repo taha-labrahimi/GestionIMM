@@ -22,6 +22,5 @@ namespace GestionIMM.Models
 
         public decimal PaiementMensuel { get; set; }
 
-        public Boolean Disponibilite { get; set; }
     }
 }
