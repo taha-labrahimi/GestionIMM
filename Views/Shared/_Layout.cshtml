@@ -56,23 +56,24 @@
                     color: #f8f9fa;
                     background-color: #92C7CF;
                 }
-            .sidebar a {
-                padding: 10px 15px;
-                text-decoration: none;
-                font-size: 18px;
-                color: white;
-                display: block;
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+
+            .sidebar a:hover {
+                color: #f8f9fa;
+                background-color: #92C7CF;
             }
 
-                .sidebar a:hover {
-                    color: #f8f9fa;
-                    background-color: #92C7CF;
-                }
-
-                .sidebar a:hover, .sidebar form button:hover {
-                    color: #f8f9fa;
-                    background-color: #92C7CF;
-                }
+            .sidebar a:hover, .sidebar form button:hover {
+                color: #f8f9fa;
+                background-color: #92C7CF;
+            }
 
         .main-content {
             margin-left: 250px;
@@ -83,26 +84,25 @@
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="py-2 px-3 mb-4 border-bottom">
-            <span class="h5 mb-0">GestionIMM</span>
-        </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="sidebar">
+            <div class="py-2 px-3 mb-4 border-bottom">
+                <span class="h5 mb-0">GestionIMM</span>
+            </div>
 
-        <a asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i> Home</a>
-        @if (SignInManager.IsSignedIn(User))
-        {
+            <a asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i> Home</a>
 
             <a asp-area="" asp-controller="Clients" asp-action="Index"><i class="bi bi-people"></i> Clients</a>
             <a asp-area="" asp-controller="Proprietes" asp-action="Index"><i class="bi bi-building"></i> Proprietes</a>
             <a asp-area="" asp-controller="TransactionVentes" asp-action="Index"><i class="bi bi-currency-exchange"></i> Transaction Ventes</a>
             <a asp-area="" asp-controller="ContratLocations" asp-action="Index"><i class="bi bi-file-earmark-text"></i> Contrat Locations</a>
-            
-            
+
             @if (User.IsInRole("Administrateur"))
             {
-                <a asp-area="" asp-controller="Users" asp-action=""><i class="bi bi-people"></i>Utilisateur</a>
-                
+                <a asp-area="" asp-controller="Users" asp-action=""><i class="bi bi-people"></i> Utilisateur</a>
             }
+
             <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
                 <span class="bi bi-person-circle"></span>
                 Bonjour @User.Identity?.Name!
@@ -112,15 +112,8 @@
                     <i class="bi bi-box-arrow-right"></i> Logout
                 </button>
             </form>
-
-            
-        }
-        else
-        {
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        }
-    </div>
-
+        </div>
+    }
 
     <div class="main-content">
         <main role="main" class="pb-3">
