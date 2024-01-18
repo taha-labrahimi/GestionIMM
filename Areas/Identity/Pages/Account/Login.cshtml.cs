@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using GestionIMM.Models;
 using Microsoft.Extensions.Logging;
+using GestionIMM.Models;
 
 namespace GestionIMM.Areas.Identity.Pages.Account
 {

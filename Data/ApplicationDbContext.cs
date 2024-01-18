@@ -10,6 +10,7 @@ namespace GestionIMM.Data
             : base(options)
         {
         }
+
         public DbSet<Client> clients { get; set; }
         public DbSet<Propriete> proprietes { get; set; }
         public DbSet<Maintenance> maintenances { get; set; }
