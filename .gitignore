@@ -363,5 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 #igonre appsettings json file
-C:\Users\tahav\source\repos\GestionIMM\appsettings.json
-/appsettings.json
+
