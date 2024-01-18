@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Utilisateur> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -43,19 +45,28 @@
     </style>
 </head>
 <body>
+
     <div class="sidebar">
         <div class="py-2 px-3 mb-4 border-bottom">
             <span class="h5 mb-0">GestionIMM</span>
         </div>
+
         <a asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i> Home</a>
-       
-            <!-- Show these links only if the user is logged in -->
+        @if (SignInManager.IsSignedIn(User))
+        {
+
             <a asp-area="" asp-controller="Clients" asp-action="Index"><i class="bi bi-people"></i> Clients</a>
             <a asp-area="" asp-controller="Proprietes" asp-action="Index"><i class="bi bi-building"></i> Proprietes</a>
             <a asp-area="" asp-controller="TransactionVentes" asp-action="Index"><i class="bi bi-currency-exchange"></i> Transaction Ventes</a>
             <a asp-area="" asp-controller="ContratLocations" asp-action="Index"><i class="bi bi-file-earmark-text"></i> Contrat Locations</a>
-            <a asp-area="" asp-controller="Utilisateurs" asp-action="Index"><i class="bi bi-person-badge"></i> Utilisateurs</a>
-       
+            
+            @if (User.IsInRole("Administrateur"))
+            {
+                <a asp-area="" asp-controller="Users" asp-action=""><i class="bi bi-file-earmark-text"></i>Utilisateur</a>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register"><i class="bi bi-plus-circle"></i> Ajouter un utilisateur</a>
+            }
+        }
+        <partial name="_LoginPartial" />
     </div>
 
 

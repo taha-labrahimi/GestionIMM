@@ -1,20 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-
+using Microsoft.AspNetCore.Identity;
 namespace GestionIMM.Models
 {
     public class Utilisateur : IdentityUser
     {
 
-        //public RoleUtilisateur Role { get; set; }
+        public string Nom { get; set; }
 
-        
-
+        public string Prenom { get; set; }
     }
 
-    //public enum RoleUtilisateur
-    //{
-    //    Administrateur,
-    //    AgentImmobilier
-    //}
 }
