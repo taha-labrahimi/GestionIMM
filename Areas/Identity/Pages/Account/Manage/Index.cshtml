@@ -1,27 +1,109 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
-    ViewData["ActivePage"] = ManageNavPages.Index;
+    ViewData["Title"] = "Modifier votre profil";
 }
+<style>
+    body {
+        background-color: #FBF9F1;
+    }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                <label asp-for="Username" class="form-label"></label>
+    .btn-custom {
+        background-color: #92C7CF;
+        border-color: #92C7CF;
+    }
+
+    .btn-custom:hover {
+        background-color: #7DA8AF;
+        border-color: #7DA8AF;
+    }
+
+    .link-custom {
+        color: #92C7CF;
+    }
+
+    .form-row {
+        margin-bottom: 20px;
+    }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .form-content .form-items {
+        background-color: #FBF9F1;
+        border-radius: 10px;
+        border: 3px solid #E5E1DA;
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 80%;
+        border: 1px solid #CCCCCC;
+        margin: auto;
+        margin-top: 30px;
+    }
+</style>
+
+@{
+    var isAdmin = User.IsInRole("Administrateur");
+
+}
+<div class="container mt-5">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-content">
+                <div class="form-items">
+                    <form id="profileForm" method="post">
+                        <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        <!-- Champ prénom -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Username" class="form-control" placeholder="Username" />
+                            <label asp-for="Input.Username">Username</label>
+                            <span asp-validation-for="Input.Username" class="text-danger"></span>
+                        </div>
+
+                        <!-- Champ prénom -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.FirstName" class="form-control" placeholder="Prénom" />
+                            <label asp-for="Input.FirstName">Prénom</label>
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Champ nom -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.LastName" class="form-control" placeholder="Nom" />
+                            <label asp-for="Input.LastName">Nom</label>
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Champ email -->
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Email" class="form-control" placeholder="Email" />
+                            <label asp-for="Input.Email">Email</label>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        @if (isAdmin)
+                        {
+                            <!-- Sélecteur de rôle visible uniquement pour les administrateurs -->
+                            <div class="form-group">
+                                <label asp-for="Input.Role" class="control-label">Rôle</label>
+                                <select asp-for="Input.Role" class="form-control" asp-items="Model.RoleSelectList">
+                                    <option value="">Sélectionnez un rôle</option>
+                                </select><br />
+                                <span asp-validation-for="Input.Role" class="text-danger"></span>
+                            </div>
+                        }
+
+
+                        <!-- Bouton de soumission -->
+                        <button type="submit" class="w-100 btn btn-custom">Enregistrer les modifications</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </form>
+        </div>
     </div>
 </div>
 

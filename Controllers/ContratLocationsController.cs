@@ -62,7 +62,7 @@ namespace GestionIMM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProprieteId,LocataireId,DateDebut,DateFin,PaiementMensuel,Disponibilite")] ContratLocation contratLocation)
+        public async Task<IActionResult> Create([Bind("Id,ProprieteId,LocataireId,DateDebut,DateFin,PaiementMensuel")] ContratLocation contratLocation)
         {
 
             _context.Add(contratLocation);
@@ -100,7 +100,7 @@ namespace GestionIMM.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProprieteId,LocataireId,DateDebut,DateFin,PaiementMensuel,Disponibilite")] ContratLocation contratLocation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProprieteId,LocataireId,DateDebut,DateFin,PaiementMensuel")] ContratLocation contratLocation)
         {
             if (id != contratLocation.Id)
             {
