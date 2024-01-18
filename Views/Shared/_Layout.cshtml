@@ -25,6 +25,37 @@
             /* padding-top: 20px; */
         }
 
+        .sidebar-link {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+
+            .sidebar-link:hover {
+                color: #f8f9fa;
+                background-color: #92C7CF;
+            }
+
+        /* Ajoutez ceci si le bouton de déconnexion a besoin de plus de spécificités */
+        .sidebar form {
+            margin: 0;
+            padding: 0;
+        }
+
+            .sidebar form button {
+                background: none;
+                border: none;
+                padding: 10px 15px;
+                width: 100%;
+                text-align: left;
+            }
+
+                .sidebar form button:hover {
+                    color: #f8f9fa;
+                    background-color: #92C7CF;
+                }
             .sidebar a {
                 padding: 10px 15px;
                 text-decoration: none;
@@ -34,6 +65,11 @@
             }
 
                 .sidebar a:hover {
+                    color: #f8f9fa;
+                    background-color: #92C7CF;
+                }
+
+                .sidebar a:hover, .sidebar form button:hover {
                     color: #f8f9fa;
                     background-color: #92C7CF;
                 }
@@ -61,13 +97,28 @@
             <a asp-area="" asp-controller="TransactionVentes" asp-action="Index"><i class="bi bi-currency-exchange"></i> Transaction Ventes</a>
             <a asp-area="" asp-controller="ContratLocations" asp-action="Index"><i class="bi bi-file-earmark-text"></i> Contrat Locations</a>
             
+            
             @if (User.IsInRole("Administrateur"))
             {
                 <a asp-area="" asp-controller="Users" asp-action=""><i class="bi bi-people"></i>Utilisateur</a>
                 
             }
+            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                <span class="bi bi-person-circle"></span>
+                Bonjour @User.Identity?.Name!
+            </a>
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="form-inline">
+                <button type="submit" class="btn btn-link nav-link text-light">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
+            </form>
+
+            
         }
-        <partial name="_LoginPartial" />
+        else
+        {
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        }
     </div>
 
 

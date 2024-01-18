@@ -89,14 +89,10 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label asp-for="PaiementMensuel" class="control-label"></label>
-                            <input asp-for="PaiementMensuel" class="form-control" />
+                            <input asp-for="PaiementMensuel" class="form-control" type="number" />
                             <span asp-validation-for="PaiementMensuel" class="text-danger"></span>
                         </div>
-                        <div class="form-group col-md-6 form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" asp-for="Disponibilite" /> @Html.DisplayNameFor(model => model.Disponibilite)
-                            </label>
-                        </div>
+                        
                     </div>
 
                     <div class="form-footer">
