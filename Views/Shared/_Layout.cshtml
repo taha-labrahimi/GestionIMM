@@ -19,7 +19,7 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #343a40;
+            background-color: #113946;
             color: white;
             overflow-x: hidden;
             padding-top: 20px;
@@ -35,7 +35,7 @@
 
                 .sidebar a:hover {
                     color: #f8f9fa;
-                    background-color: #007bff;
+                    background-color: #92C7CF;
                 }
 
         .main-content {
@@ -62,8 +62,8 @@
             
             @if (User.IsInRole("Administrateur"))
             {
-                <a asp-area="" asp-controller="Users" asp-action=""><i class="bi bi-file-earmark-text"></i>Utilisateur</a>
-                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register"><i class="bi bi-plus-circle"></i> Ajouter un utilisateur</a>
+                <a asp-area="" asp-controller="Users" asp-action=""><i class="bi bi-people"></i>Utilisateur</a>
+                
             }
         }
         <partial name="_LoginPartial" />

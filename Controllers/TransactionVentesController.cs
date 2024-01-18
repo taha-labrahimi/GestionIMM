@@ -129,7 +129,9 @@ namespace GestionIMM.Controllers
             }
 
             var transactionVente = await _context.transactionVentes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            .Include(t => t.Propriete) // Assurez-vous d'inclure la propriété
+            .Include(t => t.Client) // Assurez-vous d'inclure l'acheteur
+            .FirstOrDefaultAsync(m => m.Id == id);
             if (transactionVente == null)
             {
                 return NotFound();
