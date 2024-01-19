@@ -3,114 +3,71 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>RegistrationForm_v6 by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Include Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="~/FM/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
-<style>
-    body {
-        background-color: #FBF9F1; /* Background color */
-    }
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="~/FM/css/style.css">
+</head>
 
-    .btn-custom {
-        background-color: #92C7CF; /* Button color */
-        border-color: #92C7CF;
-    }
+<body>
 
-        .btn-custom:hover {
-            background-color: #7DA8AF; /* Button hover color */
-            border-color: #7DA8AF;
-        }
+	<div class="wrapper">
+		<div class="inner">
+			<div class="image-holder">
+				<img src="~/FM/images/Client.png" alt="">
+			</div>
+			<form asp-action="Edit">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    .link-custom {
-        color: #92C7CF; /* Link color */
-    }
+				<!-- Row for Nom and Prenom -->
+				<div class="form-row">
+					<input asp-for="Nom" class="form-control" placeholder="First Name" />
+					<span asp-validation-for="Nom" class="text-danger"></span>
+					<input asp-for="Prenom" class="form-control" placeholder="Last Name" />
+					<span asp-validation-for="Prenom" class="text-danger"></span>
+				</div> <br /><br />
 
-    .form-row {
-        margin-bottom: 20px; /* Space between rows */
-    }
+				<!-- Other form fields -->
+				<div class="form-row">
+					<input asp-for="NumeroTelephone" class="form-control" placeholder="Phone Number" />
+					<span asp-validation-for="NumeroTelephone" class="text-danger"></span>
+					<input asp-for="Adresse" class="form-control" placeholder="Adresse" />
+					<span asp-validation-for="Adresse" class="text-danger"></span>
+				</div>
+				<br /><br />
 
-    .form-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+				<div class="form-row">
+					<select asp-for="Type" class="form-control">
+						<option value="" disabled selected>Choose Your Role</option>
+						<option>Acheteur</option>
+						<option>Vendeur</option>
+						<option>Locataire</option>
+					</select>
+					<span asp-validation-for="Type" class="text-danger"></span>
+				</div>
+				<br /><br />
+				<!-- Other form fields -->
+				<!-- ... (rest of your form fields) -->
 
-    .form-content .form-items {
-        background-color: #FBF9F1; /* Form background color */
-        border-radius: 10px;
-        border: 3px solid #E5E1DA; /* Form border */
-        padding: 20px;
-        margin-bottom: 20px;
-        width: 80%; /* Form width */
-        margin: auto;
-        margin-top: 30px;
-    }
-</style>
+				<button style="background:  #161A30; color: white;">
+					Modify
+					<i class="zmdi zmdi-long-arrow-right"></i>
+				</button>
+			</form>
 
-<h1>Edit Client</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-content">
-            <div class="form-items">
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
+		</div>
+	</div>
 
-                    <!-- Row for Nom and Prenom -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label asp-for="Nom" class="control-label"></label>
-                            <input asp-for="Nom" class="form-control" />
-                            <span asp-validation-for="Nom" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Prenom" class="control-label"></label>
-                            <input asp-for="Prenom" class="form-control" />
-                            <span asp-validation-for="Prenom" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <!-- Other form fields -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label asp-for="NumeroTelephone" class="control-label"></label>
-                            <input asp-for="NumeroTelephone" class="form-control" />
-                            <span asp-validation-for="NumeroTelephone" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Adresse" class="control-label"></label>
-                            <input asp-for="Adresse" class="form-control" />
-                            <span asp-validation-for="Adresse" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label asp-for="Type" class="control-label"></label>
-                            <select asp-for="Type" class="form-control">
-                                <option>Acheteur</option>
-                                <option>Vendeur</option>
-                                <option>Locataire</option>
-                            </select>
-                            <span asp-validation-for="Type" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-footer">
-                        <a asp-action="Index" class="link-custom">Back to List</a>
-                        <input type="submit" value="Save" class="btn btn-custom" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+	<script src="~/FM/js/jquery-3.3.1.min.js"></script>
+	<script src="~/FM/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

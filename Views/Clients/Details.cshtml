@@ -4,93 +4,70 @@
     ViewData["Title"] = "Details";
 }
 
-<!-- Include Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>RegistrationForm_v6 by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    body {
-        background-color: #FBF9F1; /* Background color */
-    }
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="~/FM/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
-    .link-custom, .link-custom:hover {
-        color: #92C7CF; /* Link color */
-        text-decoration: none;
-    }
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="~/FM/css/style.css">
+</head>
 
-    .form-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+<body>
+	<div class="wrapper">
+		<div class="inner">
+			<div class="image-holder">
+				<img src="~/FM/images/Client.png" alt="">
+			</div>
+			<form asp-action="Create">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    .form-content .form-items {
-        background-color: #FBF9F1; /* Form background color */
-        border-radius: 10px;
-        border: 3px solid #E5E1DA; /* Form border */
-        padding: 20px;
-        margin-bottom: 20px;
-        width: 80%; /* Form width */
-        margin: auto;
-        margin-top: 30px;
-    }
+				<!-- Row for Nom and Prenom -->
+				<div class="form-row">
+					<input asp-for="Nom" class="form-control" placeholder="First Name" readonly />
+					<span asp-validation-for="Nom" class="text-danger"></span>
+					<input asp-for="Prenom" class="form-control" placeholder="Last Name" readonly />
+					<span asp-validation-for="Prenom" class="text-danger"></span>
+				</div> <br /><br />
 
-    .form-control-plaintext {
-        background-color: #fff; /* White background for readonly fields */
-        padding: .375rem .75rem; /* Padding similar to form-control */
-        border: 1px solid #ced4da; /* Border similar to form-control */
-        border-radius: .25rem; /* Border radius similar to form-control */
-    }
-</style>
+				<!-- Other form fields -->
+				<div class="form-row">
+					<input asp-for="NumeroTelephone" class="form-control" placeholder="Phone Number" readonly />
+					<span asp-validation-for="NumeroTelephone" class="text-danger"></span>
+					<input asp-for="Adresse" class="form-control" placeholder="Adresse" readonly />
+					<span asp-validation-for="Adresse" class="text-danger"></span>
+				</div>
+				<br /><br />
 
-<h1>Details of Client</h1>
+				<div class="form-row">
+					<select asp-for="Type" class="form-control" disabled>
+						<option value="" disabled selected>Choose Your Role</option>
+						<option>Acheteur</option>
+						<option>Vendeur</option>
+						<option>Locataire</option>
+					</select>
+					<span asp-validation-for="Type" class="text-danger"></span>
+				</div>
+				<br /><br />
+				<!-- Other form fields -->
+				<!-- ... (rest of your form fields) -->
 
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-content">
-            <div class="form-items">
-                <form>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Nom:</label>
-                            <input type="text" readonly class="form-control-plaintext" value="@Model.Nom">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Prenom:</label>
-                            <input type="text" readonly class="form-control-plaintext" value="@Model.Prenom">
-                        </div>
-                    </div>
+				<button style="background:  #161A30; color: white;" asp-action="Index">
+					Back
+					<i class="zmdi zmdi-long-arrow-right"></i>
+				</button>
+			</form>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Numero Telephone:</label>
-                            <input type="text" readonly class="form-control-plaintext" value="@Model.NumeroTelephone">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Adresse:</label>
-                            <input type="text" readonly class="form-control-plaintext" value="@Model.Adresse">
-                        </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label class="col-form-label">Type:</label>
-                            <input type="text" readonly class="form-control-plaintext" value="@Model.Type">
-                        </div>
-                    </div>
+		</div>
+	</div>
 
-                    <div class="form-footer">
-                        <a asp-action="Edit" asp-route-id="@Model?.Id" class="link-custom">Edit</a>
-                        <a asp-action="Index" class="link-custom">Back to List</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+	<script src="~/FM/js/jquery-3.3.1.min.js"></script>
+	<script src="~/FM/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

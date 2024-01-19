@@ -4,109 +4,66 @@
     ViewData["Title"] = "Edit";
 }
 
-<!-- Include Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RegistrationForm_v6 by Colorlib</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    body {
-        background-color: #FBF9F1; /* Background color */
-    }
+	<!-- MATERIAL DESIGN ICONIC FONT -->
+	<link rel="stylesheet" href="~/FM/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
-    .btn-custom {
-        background-color: #92C7CF; /* Button color */
-        border-color: #92C7CF;
-    }
+	<!-- STYLE CSS -->
+	<link rel="stylesheet" href="~/FM/css/style.css">
+</head>
 
-        .btn-custom:hover {
-            background-color: #7DA8AF; /* Button hover color */
-            border-color: #7DA8AF;
-        }
+<body>
 
-    .link-custom {
-        color: #92C7CF; /* Link color */
-    }
+	<div class="wrapper">
+		<div class="inner">
+			<div class="image-holder">
+				<img src="~/FM/images/bg12.jpg" alt="">
+			</div>
+			<form method="post" enctype="multipart/form-data">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    .form-row {
-        margin-bottom: 20px; /* Space between rows */
-    }
+				<!-- Row for Nom and Prenom -->
+				<div class="form-row">
+					<input asp-for="Type" class="form-control" placeholder="Propriete Name" />
+					<span asp-validation-for="Type" class="text-danger"></span>
+					<input asp-for="Taille" class="form-control" placeholder="Propriete Size" />
+					<span asp-validation-for="Taille" class="text-danger"></span>
+				</div> <br /><br />
 
-    .form-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+				<!-- Other form fields -->
+				<div class="form-row">
+					<input asp-for="Emplacement" class="form-control" placeholder="Adresse" />
+					<span asp-validation-for="Emplacement" class="text-danger"></span>
+					<input asp-for="Caracteristiques" class="form-control" placeholder="Characteristic" />
+					<span asp-validation-for="Caracteristiques" class="text-danger"></span>
+				</div>
+				<br /><br />
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<input asp-for="Image" type="file" accept="image/*" name="uploadimage" id="uploadimage" />
+					</div>
+				</div>
+				<br /><br />
+				<!-- Other form fields -->
+				<!-- ... (rest of your form fields) -->
 
-    .form-content .form-items {
-        background-color: #FBF9F1; /* Form background color */
-        border-radius: 10px;
-        border: 3px solid #E5E1DA; /* Form border */
-        padding: 20px;
-        margin-bottom: 20px;
-        width: 80%; /* Form width */
-        margin: auto;
-        margin-top: 30px;
-    }
-</style>
+				<button style="background:  #161A30; color: white;">
+					Modify
+					<i class="zmdi zmdi-long-arrow-right"></i>
+				</button>
+			</form>
 
-<h1>Edit Propriete</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-content">
-            <div class="form-items">
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" />
+		</div>
+	</div>
 
-                    <!-- Form fields for Propriete -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label asp-for="Type" class="control-label"></label>
-                            <input asp-for="Type" class="form-control" />
-                            <span asp-validation-for="Type" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Taille" class="control-label"></label>
-                            <input asp-for="Taille" class="form-control" />
-                            <span asp-validation-for="Taille" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label asp-for="Emplacement" class="control-label"></label>
-                            <input asp-for="Emplacement" class="form-control" />
-                            <span asp-validation-for="Emplacement" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label asp-for="Caracteristiques" class="control-label"></label>
-                            <input asp-for="Caracteristiques" class="form-control" />
-                            <span asp-validation-for="Caracteristiques" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <!-- Image upload field -->
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="uploadimage">Image</label>
-                            <input type="file" class="form-control" accept="image/*" asp-for="Image" />
-                            <span asp-validation-for="Image" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-footer">
-                        <a asp-action="Index" class="link-custom">Back to List</a>
-                        <input type="submit" value="Save" class="btn btn-custom" />
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+	<script src="~/FM/js/jquery-3.3.1.min.js"></script>
+	<script src="~/FM/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
