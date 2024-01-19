@@ -22,4 +22,16 @@
     <Folder Include="Views\Login\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\LK\.DS_Store" />
+    <None Include="wwwroot\LK\css\.DS_Store" />
+    <None Include="wwwroot\LK\css\bootstrap\.DS_Store" />
+    <None Include="wwwroot\LK\css\bootstrap\mixins\.DS_Store" />
+    <None Include="wwwroot\LK\fonts\.DS_Store" />
+    <None Include="wwwroot\LK\images\.DS_Store" />
+    <None Include="wwwroot\LK\js\.DS_Store" />
+    <None Include="wwwroot\LK\scss\.DS_Store" />
+    <None Include="wwwroot\LK\scss\bootstrap\.DS_Store" />
+  </ItemGroup>
+
 </Project>
