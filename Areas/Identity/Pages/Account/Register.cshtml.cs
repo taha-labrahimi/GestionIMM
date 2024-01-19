@@ -123,57 +123,62 @@ namespace GestionIMM.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
-        {
-            returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
-            {
-                var user = CreateUser();
-                user.Prenom = Input.FirstName;
-                user.Nom = Input.LastName;
-                await _userStore.SetUserNameAsync(user, new MailAddress(Input.Email).User, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+		public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+		{
+			returnUrl ??= Url.Content("~/");
+			ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
-                    await _userManager.AddToRoleAsync(user, Input.Role);
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
+			if (ModelState.IsValid)
+			{
+				var user = CreateUser(); // Supposons que cette méthode crée l'objet utilisateur.
+				user.Prenom = Input.FirstName;
+				user.Nom = Input.LastName;
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+				// Définissez le nom d'utilisateur et l'email de l'objet user.
+				await _userStore.SetUserNameAsync(user, new MailAddress(Input.Email).User, CancellationToken.None);
+				await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        //await _signInManager.SignInAsync(user, isPersistent: false);
-                        //return LocalRedirect(returnUrl);
-                        return RedirectToAction("Index", "Users");
-                    }
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
+				// Créez l'utilisateur avec le mot de passe donné.
+				var result = await _userManager.CreateAsync(user, Input.Password);
 
-            // If we got this far, something failed, redisplay form
-            return Page();
-        }
+				if (result.Succeeded)
+				{
+					_logger.LogInformation("User created a new account with password.");
 
-        private Utilisateur CreateUser()
+					// Ajoutez l'utilisateur au rôle spécifié.
+					await _userManager.AddToRoleAsync(user, Input.Role);
+
+					// Générez le code de confirmation par email et envoyez-le.
+					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+					code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+					var callbackUrl = Url.Page(
+						"/Account/ConfirmEmail",
+						pageHandler: null,
+						values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+						protocol: Request.Scheme);
+
+					await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+						$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+					// Commentez la ligne suivante si vous ne voulez pas connecter l'utilisateur immédiatement après l'enregistrement.
+					// await _signInManager.SignInAsync(user, isPersistent: false);
+
+					// Redirigez vers la page Index du contrôleur Users.
+					return RedirectToAction("Index", "Users");
+				}
+
+				foreach (var error in result.Errors)
+				{
+					ModelState.AddModelError(string.Empty, error.Description);
+				}
+			}
+
+			// Si nous avons atteint ce point, quelque chose a échoué, redisplay form.
+			return Page();
+		}
+
+
+		private Utilisateur CreateUser()
         {
             try
             {

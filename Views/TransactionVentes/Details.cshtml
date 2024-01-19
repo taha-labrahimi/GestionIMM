@@ -3,79 +3,58 @@
 @{
     ViewData["Title"] = "Details";
 }
-
 <!-- Include Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>RegistrationForm_v6 by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    body {
-        background-color: #FBF9F1; /* Background color */
-    }
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="~/FM/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
-    .link-custom, .link-custom:hover {
-        color: #92C7CF; /* Link color */
-        text-decoration: none;
-    }
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="~/FM/css/style.css">
+</head>
 
-    .form-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .form-content .form-items {
-        background-color: #FBF9F1; /* Form background color */
-        border-radius: 10px;
-        border: 3px solid #E5E1DA; /* Form border */
-        padding: 20px;
-        margin-bottom: 20px;
-        width: 80%; /* Form width */
-        margin: auto;
-        margin-top: 30px;
-    }
-
-    .form-control-plaintext {
-        background-color: #fff; /* White background for readonly fields */
-        padding: .375rem .75rem; /* Padding similar to form-control */
-        border: 1px solid #ced4da; /* Border similar to form-control */
-        border-radius: .25rem; /* Border radius similar to form-control */
-    }
-</style>
-
-<h1>Details of TransactionVente</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-content">
-            <div class="form-items">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="col-form-label">Propriété:</label>
-                        <input type="text" readonly class="form-control-plaintext" value="@Model.Propriete.Type">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="col-form-label">Client:</label>
-                        <input type="text" readonly class="form-control-plaintext" value="@Model.Client.Nom">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="col-form-label">Date de Transaction:</label>
-                        <input type="text" readonly class="form-control-plaintext" value="@Model.DateTransaction.ToString("dd/MM/yyyy")">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="col-form-label">Montant:</label>
-                        <input type="text" readonly class="form-control-plaintext" value="@Model.Montant.ToString("C")">
-                    </div>
-                </div>
-
-                <div class="form-footer">
-                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="link-custom">Edit</a>
-                    <a asp-action="Index" class="link-custom">Back to List</a>
-                </div>
+<body>
+    <div class="wrapper">
+        <div class="inner">
+            <div class="image-holder">
+                <img src="~/FM/images/frr.jpg" alt="">
             </div>
+            <form>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <br />
+
+                <!-- Form fields for ContratLocation -->
+                <div class="form-row">
+                    <input asp-for="Propriete.Type" class="form-control" readonly />
+                    <input asp-for="Client.Nom" class="form-control" readonly />
+
+                </div><br /><br /><br />
+
+                <div class="form-row">
+
+                    <input asp-for="DateTransaction" class="form-control" readonly />
+                    <span asp-validation-for="DateTransaction" class="text-danger"></span>
+                    <input asp-for="Montant" class="form-control" type="number" placeholder="Paiment" readonly/>
+                    <span asp-validation-for="Montant" class="text-danger"></span>
+                </div><br /><br /><br />
+
+
+                <button style="background:  #161A30; color: white;" asp-action="Index">
+                    Back
+                    <i class="zmdi zmdi-long-arrow-right"></i>
+                </button>
+            </form>
+
+
         </div>
     </div>
-</div>
+
+    <script src="~/FM/js/jquery-3.3.1.min.js"></script>
+    <script src="~/FM/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

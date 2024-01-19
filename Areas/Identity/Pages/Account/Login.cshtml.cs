@@ -99,7 +99,7 @@ namespace GestionIMM.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Action("Index", "Clients");
 
             if (ModelState.IsValid)
             {
@@ -107,7 +107,6 @@ namespace GestionIMM.Areas.Identity.Pages.Account
 
                 if (user != null)
                 {
-                    // Tentez de vous connecter l'utilisateur
                     var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
@@ -116,7 +115,6 @@ namespace GestionIMM.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        // Si la connexion échoue, ajoutez une erreur au ModelState pour informer l'utilisateur
                         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     }
                 }
@@ -126,7 +124,6 @@ namespace GestionIMM.Areas.Identity.Pages.Account
                 }
             }
 
-            // Si nous arrivons ici, quelque chose a échoué, réaffichez la page avec les erreurs
             return Page();
         }
 

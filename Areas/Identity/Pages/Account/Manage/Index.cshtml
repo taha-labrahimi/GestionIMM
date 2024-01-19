@@ -1,117 +1,78 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Modifier votre profil";
+	ViewData["Title"] = "Modifier votre profil";
 }
-<style>
-    body {
-        background-color: #FBF9F1;
-    }
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RegistrationForm_v6 by Colorlib</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .btn-custom {
-        background-color: #92C7CF;
-        border-color: #92C7CF;
-    }
+	<!-- MATERIAL DESIGN ICONIC FONT -->
+	<link rel="stylesheet" href="~/FM/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
-    .btn-custom:hover {
-        background-color: #7DA8AF;
-        border-color: #7DA8AF;
-    }
-
-    .link-custom {
-        color: #92C7CF;
-    }
-
-    .form-row {
-        margin-bottom: 20px; /* Space between each line */
-    }
-
-    .form-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    /* Additional styling for form elements */
-    .form-content .form-items {
-        background-color: #FBF9F1; /* White background for form */
-        border-radius: 10px;
-        border: 3px solid #E5E1DA;
-        padding: 20px;
-        margin-bottom: 20px;
-    }
-
-
-    .form-content .form-items {
-        width: 80%;
-        border: 1px solid #CCCCCC;
-        margin: auto;
-        margin-top: 30px;
-    }
-</style>
-
+	<!-- STYLE CSS -->
+	<link rel="stylesheet" href="~/FM/css/style.css">
+</head>
 @{
-    var isAdmin = User.IsInRole("Administrateur");
+	var isAdmin = User.IsInRole("Administrateur");
 
 }
-<div class="container mt-5">
-    <h1 class="text-center">@ViewData["Title"]</h1>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-content">
-                <div class="form-items">
-                    <form id="profileForm" method="post">
-                        <hr />
-                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                        <!-- Champ prénom -->
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Username" class="form-control" placeholder="Username" />
-                            <label asp-for="Input.Username">Username</label>
-                            <span asp-validation-for="Input.Username" class="text-danger"></span>
-                        </div>
 
-                        <!-- Champ prénom -->
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.FirstName" class="form-control" placeholder="Prénom" />
-                            <label asp-for="Input.FirstName">Prénom</label>
-                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                        </div>
+<body>
 
-                        <!-- Champ nom -->
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.LastName" class="form-control" placeholder="Nom" />
-                            <label asp-for="Input.LastName">Nom</label>
-                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                        </div>
+	<div class="wrapper">
+		<div class="inner">
+			<div class="image-holder">
+				<img src="~/FM/images/profile-img.jpg" alt="">
+			</div>
+			<form id="profileForm" method="post">
+				<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+				<div class="form-row">
 
-                        <!-- Champ email -->
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Email" class="form-control" placeholder="Email" />
-                            <label asp-for="Input.Email">Email</label>
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                        </div>
-                        @if (isAdmin)
-                        {
-                            <!-- Sélecteur de rôle visible uniquement pour les administrateurs -->
-                            <div class="form-group">
-                                <label asp-for="Input.Role" class="control-label">Rôle</label>
-                                <select asp-for="Input.Role" class="form-control" asp-items="Model.RoleSelectList">
-                                    <option value="">Sélectionnez un rôle</option>
-                                </select><br />
-                                <span asp-validation-for="Input.Role" class="text-danger"></span>
-                            </div>
-                        }
+					<input asp-for="Input.Username" class="form-control" placeholder="Username" />
+					<span asp-validation-for="Input.Username" class="text-danger"></span>
+					<input asp-for="Input.FirstName" class="form-control" placeholder="Prénom" />
+					<span asp-validation-for="Input.FirstName" class="text-danger"></span>
+
+				</div><br /><br />
+
+				<div class="form-row">
+
+					<input asp-for="Input.LastName" class="form-control" placeholder="Nom" />
+					<span asp-validation-for="Input.LastName" class="text-danger"></span>
+					<input asp-for="Input.Email" class="form-control" placeholder="Email" />
+					<span asp-validation-for="Input.Email" class="text-danger"></span>
+				</div><br /><br />
+				<!-- Champ nom -->
+				@if (isAdmin)
+				{
+					<div class="form-row">
+						<select asp-for="Input.Role" class="form-control" asp-items="Model.RoleSelectList">
+							<option value="">Sélectionnez un rôle</option>
+						</select><br />
+						<span asp-validation-for="Input.Role" class="text-danger"></span>
+					</div>
+
+				}
+
+				<br /><br />
+				<!-- Other form fields -->
+				<!-- ... (rest of your form fields) -->
+
+				<button style="background:  #161A30; color: white;">
+					Modify
+					<i class="zmdi zmdi-long-arrow-right"></i>
+				</button>
+			</form>
 
 
-                        <!-- Bouton de soumission -->
-                        <button type="submit" class="w-100 btn btn-custom">Enregistrer les modifications</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+		</div>
+	</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+	<script src="~/FM/js/jquery-3.3.1.min.js"></script>
+	<script src="~/FM/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

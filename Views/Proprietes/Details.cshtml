@@ -4,76 +4,49 @@
     ViewData["Title"] = "Details";
 }
 
-<!-- Include Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RegistrationForm_v6 by Colorlib</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    body {
-        background-color: #FBF9F1; /* Background color */
-    }
+	<!-- MATERIAL DESIGN ICONIC FONT -->
+	<link rel="stylesheet" href="~/FM/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
-    .link-custom, .link-custom:hover {
-        color: #92C7CF; /* Link color */
-        text-decoration: none;
-    }
+	<!-- STYLE CSS -->
+	<link rel="stylesheet" href="~/FM/css/style.css">
+</head>
 
-    .form-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+<body>
 
-    .form-content .form-items {
-        background-color: #FBF9F1; /* Form background color */
-        border-radius: 10px;
-        border: 3px solid #E5E1DA; /* Form border */
-        padding: 20px;
-        margin-bottom: 20px;
-        width: 80%; /* Form width */
-        margin: auto;
-        margin-top: 30px;
-    }
+	<div class="wrapper">
+		<div class="inner">
+			<div class="image-holder">
+				<img src="~/FM/images/bg12.jpg" alt="">
+			</div>
+			<form method="post" enctype="multipart/form-data">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    .form-control-plaintext {
-        background-color: #fff; /* White background for readonly fields */
-        padding: .375rem .75rem; /* Padding similar to form-control */
-        border: 1px solid #ced4da; /* Border similar to form-control */
-        border-radius: .25rem; /* Border radius similar to form-control */
-    }
-</style>
+				<!-- Row for Nom and Prenom -->
+				<div class="form-row">
+					<input asp-for="Type" class="form-control" placeholder="Propriete Name" readonly/>
+					<span asp-validation-for="Type" class="text-danger"></span>
+					<input asp-for="Taille" class="form-control" placeholder="Propriete Size" readonly />
+					<span asp-validation-for="Taille" class="text-danger"></span>
+				</div> <br /><br />
 
-<h1>Details of Propriete</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-content">
-            <div class="form-items">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="col-form-label">Type:</label>
-                        <input type="text" readonly class="form-control-plaintext" value="@Model.Type">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="col-form-label">Taille:</label>
-                        <input type="text" readonly class="form-control-plaintext" value="@Model.Taille">
-                    </div>
-                </div>
+				<!-- Other form fields -->
+				<div class="form-row">
+					<input asp-for="Emplacement" class="form-control" placeholder="Adresse" readonly />
+					<span asp-validation-for="Emplacement" class="text-danger"></span>
+					<input asp-for="Caracteristiques" class="form-control" placeholder="Characteristic" readonly />
+					<span asp-validation-for="Caracteristiques" class="text-danger"></span>
+				</div>
+				<br /><br />
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="col-form-label">Emplacement:</label>
-                        <input type="text" readonly class="form-control-plaintext" value="@Model.Emplacement">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="col-form-label">Caracteristiques:</label>
-                        <input type="text" readonly class="form-control-plaintext" value="@Model.Caracteristiques">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label class="col-form-label">Image:</label>
+                        <label >Image:</label>
                         @if (Model.Image != null)
                         {
                             <img src="@Url.Content("~/images/" + Model.Image)" alt="Image de la propriété" style="max-width: 200px; max-height: 200px;" />
@@ -82,14 +55,23 @@
                         {
                             <input type="text" readonly class="form-control-plaintext" value="Aucune image disponible.">
                         }
-                    </div>
                 </div>
+				
+				<!-- Other form fields -->
+				<!-- ... (rest of your form fields) -->
 
-                <div class="form-footer">
-                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="link-custom">Edit</a>
-                    <a asp-action="Index" class="link-custom">Back to List</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+				<button style="background:  #161A30; color: white;" asp-action="Index">
+					Back
+					<i class="zmdi zmdi-long-arrow-right"></i>
+				</button>
+			</form>
+
+
+		</div>
+	</div>
+
+	<script src="~/FM/js/jquery-3.3.1.min.js"></script>
+	<script src="~/FM/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
+

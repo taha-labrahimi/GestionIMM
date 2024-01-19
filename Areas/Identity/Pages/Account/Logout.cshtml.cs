@@ -28,16 +28,9 @@ namespace GestionIMM.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                // This needs to be a redirect so that the browser performs a new
-                // request and the identity for the user gets updated.
-                return RedirectToPage();
-            }
+
+            // Redirection vers la page d'accueil après la déconnexion
+            return RedirectToAction("Index", "Home");
         }
     }
 }

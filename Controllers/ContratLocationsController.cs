@@ -106,9 +106,6 @@ namespace GestionIMM.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(contratLocation);
@@ -126,7 +123,7 @@ namespace GestionIMM.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            
             ViewData["LocataireId"] = new SelectList(_context.clients, "Id", "Nom", contratLocation.LocataireId);
             ViewData["ProprieteId"] = new SelectList(_context.proprietes, "Id", "Type", contratLocation.ProprieteId);
             return View(contratLocation);

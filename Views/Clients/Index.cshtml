@@ -10,48 +10,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-    /* Background color for the entire page */
+    /* Styles from the Client Index page */
     body {
-        background-color: #FBF9F1;
+        background-image: url('/FM/images/bg-registration-form-6.jpg'); /* Remplacez avec le chemin réel de votre image */
+        background-size: cover; /* Couvre toute la page */
+        background-repeat: no-repeat; /* L'image ne se répète pas */
+        background-attachment: fixed; /* L'image reste fixe lors du défilement de la page */
+        background-color: #647D87; /* Couleur de fond en cas où l'image ne couvre pas tout */
     }
 
     /* Table header color and text styling */
     .table-dark th {
-        background-color: #92C7CF;
-        color: black; /* Text color */
+        background-color: #161A30;
+        color: white; /* Text color */
         font-weight: bold; /* Bold text */
     }
 
-    /* Highlight color on row hover */
     .table-hover tbody tr:hover {
         background-color: #E5E1DA;
     }
 
-    /* Additional styles for search box */
     .search-box {
         margin-bottom: 20px;
-    }
-
-    .search-box {
-        height: 38px; /* Adjust the height as needed */
+        height: 38px;
     }
 
     .table th, .table td {
-        vertical-align: middle; /* Align content vertically in the middle */
+        vertical-align: middle;
     }
 
-    /* Styles for action icons */
     .action-icons a {
-        margin-right: 10px; /* Space between icons */
+        margin-right: 10px;
     }
 
     .custom-color-btn {
-        background-color: #AAD7D9; /* Custom color */
-        border-color: #AAD7D9; /* Border color to match the background */
+        background-color: #161A30;
+        border-color: #161A30;
     }
-    /* Styles for pagination */
+
     .pagination {
-        justify-content: center; /* Center the pagination */
+        justify-content: center;
+    }
+
+    .fas.fa-plus {
+        color: white; /* Définit la couleur du symbole en blanc */
+    }
+
+    .btn.custom-color-btn:hover .fas.fa-plus {
+        color: white; /* La couleur du symbole + reste blanche au survol */
+    }
+
+    .btn.custom-color-btn:hover {
+        background-color: #161A30; /* ou toute autre couleur que vous utilisez pour le bouton */
+        border-color: #161A30; /* Assurez-vous que la couleur de la bordure est la même que celle du fond */
     }
 </style>
 

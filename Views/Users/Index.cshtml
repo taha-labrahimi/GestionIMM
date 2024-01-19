@@ -11,13 +11,18 @@
 <style>
     /* Styles from the Client Index page */
     body {
-        background-color: #FBF9F1;
+        background-image: url('/FM/images/bg-registration-form-6.jpg'); /* Remplacez avec le chemin réel de votre image */
+        background-size: cover; /* Couvre toute la page */
+        background-repeat: no-repeat; /* L'image ne se répète pas */
+        background-attachment: fixed; /* L'image reste fixe lors du défilement de la page */
+        background-color: #647D87; /* Couleur de fond en cas où l'image ne couvre pas tout */
     }
 
+    /* Table header color and text styling */
     .table-dark th {
-        background-color: #92C7CF;
-        color: black;
-        font-weight: bold;
+        background-color: #161A30;
+        color: white; /* Text color */
+        font-weight: bold; /* Bold text */
     }
 
     .table-hover tbody tr:hover {
@@ -38,16 +43,29 @@
     }
 
     .custom-color-btn {
-        background-color: #AAD7D9;
-        border-color: #AAD7D9;
+        background-color: #161A30;
+        border-color: #161A30;
     }
 
     .pagination {
         justify-content: center;
     }
+
+    .fas.fa-plus {
+        color: white; /* Définit la couleur du symbole en blanc */
+    }
+
+    .btn.custom-color-btn:hover .fas.fa-plus {
+        color: white; /* La couleur du symbole + reste blanche au survol */
+    }
+
+    .btn.custom-color-btn:hover {
+        background-color: #161A30; /* ou toute autre couleur que vous utilisez pour le bouton */
+        border-color: #161A30; /* Assurez-vous que la couleur de la bordure est la même que celle du fond */
+    }
 </style>
 
-<h1>Liste des Utilisateurs</h1>
+
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -67,6 +85,7 @@
 
 
 <div class="container mt-4">
+    <h1>Liste des Utilisateurs</h1>
     <div class="row">
         <div class="col text-left">
             <p>
