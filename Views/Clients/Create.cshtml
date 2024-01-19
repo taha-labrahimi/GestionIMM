@@ -22,12 +22,12 @@
 		<div class="wrapper">
 			<div class="inner">
 				<div class="image-holder">
-				<img src="~/FM/images/Client.png" alt="">
+				<img src="~/FM/images/imgclient.jpg" alt="">
 				</div>
 				<form asp-action="Create">
 					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 				
-					<!-- Row for Nom and Prenom -->
+					
 					<div class="form-row">
 							<input asp-for="Nom" class="form-control" placeholder="First Name"/>
 							<span asp-validation-for="Nom" class="text-danger"></span>
@@ -35,7 +35,7 @@
 							<span asp-validation-for="Prenom" class="text-danger"></span>
 				</div> <br /><br />
 				
-					<!-- Other form fields -->
+					
 					<div class="form-row">
 					<input asp-for="NumeroTelephone" class="form-control" placeholder="Phone Number" />
 							<span asp-validation-for="NumeroTelephone" class="text-danger"></span>
@@ -54,8 +54,6 @@
 							<span asp-validation-for="Type" class="text-danger"></span>
 						</div>
 				<br /><br />
-					<!-- Other form fields -->
-					<!-- ... (rest of your form fields) -->
 
 				<button style="background:  #161A30; color: white;">
 					Create
